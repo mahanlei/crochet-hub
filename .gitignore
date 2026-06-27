@@ -1,0 +1,24 @@
+# Node / Frontend
+node_modules/
+dist/
+
+# Python / Backend
+__pycache__/
+*.py[cod]
+*.egg-info/
+venv/
+.venv/
+
+# Environment & secrets
+.env
+
+# Database (keep seed db for deployment)
+# *.db
+
+# Uploads — keep seed images for deployment
+# server/uploads/*
+# !server/uploads/.gitkeep
+
+# OS
+.DS_Store
+Thumbs.db
