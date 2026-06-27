@@ -1,0 +1,19 @@
+import express from 'express'
+import { fileURLToPath } from 'url'
+import { dirname, join } from 'path'
+
+const __dirname = dirname(fileURLToPath(import.meta.url))
+const app = express()
+const PORT = process.env.PORT || 3000
+
+// 托管 Vite 构建产出的静态文件
+app.use(express.static(join(__dirname, 'dist')))
+
+// 所有路由都返回 index.html（支持前端 React Router）
+app.get('*', (req, res) => {
+  res.sendFile(join(__dirname, 'dist', 'index.html'))
+})
+
+app.listen(PORT, () => {
+  console.log(`CrochetHub frontend running on port ${PORT}`)
+})
