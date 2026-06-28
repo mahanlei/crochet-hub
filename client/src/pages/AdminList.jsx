@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-import { getWorks, deleteWork } from '../services/api'
+import { getWorks, deleteWork, imgUrl } from '../services/api'
 
 const craftTypeMap = { crochet: '钩针', knitting: '棒针' }
 const difficultyMap = { beginner: '入门', intermediate: '进阶', advanced: '高级' }
@@ -68,7 +68,7 @@ export default function AdminList() {
                     <div className="flex items-center gap-3">
                       <div className="w-10 h-10 rounded bg-gray-100 overflow-hidden flex-shrink-0">
                         {work.cover_image ? (
-                          <img src={work.cover_image} alt="" className="w-full h-full object-cover" />
+                          <img src={imgUrl(work.cover_image)} alt="" className="w-full h-full object-cover" />
                         ) : (
                           <div className="w-full h-full flex items-center justify-center text-gray-300">🧶</div>
                         )}
