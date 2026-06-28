@@ -3,7 +3,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import { getWorks, deleteWork, imgUrl } from '../services/api'
 
 const craftTypeMap = { crochet: '钩针', knitting: '棒针' }
-const difficultyMap = { beginner: '入门', intermediate: '进阶', advanced: '高级' }
+const difficultyMap = { beginner: '入门', intermediate: '中级', advanced: '高级' }
 
 export default function AdminList() {
   const [works, setWorks] = useState([])
@@ -51,14 +51,15 @@ export default function AdminList() {
         </div>
       ) : (
         <div className="bg-white rounded-xl border border-gray-100 overflow-hidden">
-          <table className="w-full text-sm">
+          {/* 桌面端：表格布局 */}
+          <table className="w-full text-sm hidden sm:table">
             <thead className="bg-gray-50 text-gray-500">
               <tr>
                 <th className="text-left px-4 py-3 font-medium">作品</th>
-                <th className="text-left px-4 py-3 font-medium">类别</th>
-                <th className="text-left px-4 py-3 font-medium">难度</th>
-                <th className="text-left px-4 py-3 font-medium">创建时间</th>
-                <th className="text-right px-4 py-3 font-medium">操作</th>
+                <th className="text-left px-4 py-3 font-medium whitespace-nowrap">类别</th>
+                <th className="text-left px-4 py-3 font-medium whitespace-nowrap">难度</th>
+                <th className="text-left px-4 py-3 font-medium whitespace-nowrap">创建时间</th>
+                <th className="text-right px-4 py-3 font-medium whitespace-nowrap">操作</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-gray-50">
@@ -76,10 +77,10 @@ export default function AdminList() {
                       <span className="font-medium text-gray-800 truncate max-w-[200px]">{work.title}</span>
                     </div>
                   </td>
-                  <td className="px-4 py-3 text-gray-500">{craftTypeMap[work.craft_type] || work.craft_type}</td>
-                  <td className="px-4 py-3 text-gray-500">{difficultyMap[work.difficulty] || work.difficulty}</td>
-                  <td className="px-4 py-3 text-gray-400">{new Date(work.created_at).toLocaleDateString()}</td>
-                  <td className="px-4 py-3 text-right">
+                  <td className="px-4 py-3 text-gray-500 whitespace-nowrap">{craftTypeMap[work.craft_type] || work.craft_type}</td>
+                  <td className="px-4 py-3 text-gray-500 whitespace-nowrap">{difficultyMap[work.difficulty] || work.difficulty}</td>
+                  <td className="px-4 py-3 text-gray-400 whitespace-nowrap">{new Date(work.created_at).toLocaleDateString()}</td>
+                  <td className="px-4 py-3 text-right whitespace-nowrap">
                     <button
                       onClick={() => navigate(`/admin/edit/${work.id}`)}
                       className="text-blue-600 hover:underline mr-3"
@@ -97,6 +98,47 @@ export default function AdminList() {
               ))}
             </tbody>
           </table>
+
+          {/* 移动端：卡片布局 */}
+          <div className="sm:hidden divide-y divide-gray-100">
+            {works.map((work) => (
+              <div key={work.id} className="p-4">
+                <div className="flex items-center gap-3 mb-2">
+                  <div className="w-12 h-12 rounded bg-gray-100 overflow-hidden flex-shrink-0">
+                    {work.cover_image ? (
+                      <img src={imgUrl(work.cover_image)} alt="" className="w-full h-full object-cover" />
+                    ) : (
+                      <div className="w-full h-full flex items-center justify-center text-gray-300">🧶</div>
+                    )}
+                  </div>
+                  <div className="min-w-0 flex-1">
+                    <div className="font-medium text-gray-800 truncate">{work.title}</div>
+                    <div className="text-xs text-gray-400 mt-0.5">
+                      {craftTypeMap[work.craft_type] || work.craft_type}
+                      <span className="mx-1">·</span>
+                      {difficultyMap[work.difficulty] || work.difficulty}
+                      <span className="mx-1">·</span>
+                      {new Date(work.created_at).toLocaleDateString()}
+                    </div>
+                  </div>
+                </div>
+                <div className="flex justify-end gap-4 text-sm">
+                  <button
+                    onClick={() => navigate(`/admin/edit/${work.id}`)}
+                    className="text-blue-600 hover:underline"
+                  >
+                    编辑
+                  </button>
+                  <button
+                    onClick={() => handleDelete(work.id, work.title)}
+                    className="text-red-500 hover:underline"
+                  >
+                    删除
+                  </button>
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
       )}
     </div>

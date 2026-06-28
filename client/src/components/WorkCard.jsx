@@ -3,7 +3,7 @@ import { imgUrl } from '../services/api'
 
 const difficultyMap = {
   beginner: { label: '入门', color: 'bg-green-100 text-green-700' },
-  intermediate: { label: '进阶', color: 'bg-yellow-100 text-yellow-700' },
+  intermediate: { label: '中级', color: 'bg-yellow-100 text-yellow-700' },
   advanced: { label: '高级', color: 'bg-red-100 text-red-700' },
 }
 

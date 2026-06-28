@@ -25,7 +25,7 @@ export default function Home() {
   return (
     <div>
       <div className="text-center mb-6">
-        <h1 className="text-2xl font-bold text-gray-800 mb-1">手工作品集</h1>
+        <h1 className="text-2xl font-bold text-gray-800 mb-1">小马甲手作集</h1>
         <p className="text-sm text-gray-500">分享钩针与棒针编织的美好</p>
       </div>
 

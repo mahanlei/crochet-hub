@@ -19,7 +19,7 @@ export default function App() {
                 作品展示
               </Link>
               <Link to="/admin" className="text-gray-600 hover:text-pink-600 transition">
-                后台管理
+                作品管理
               </Link>
             </div>
           </div>

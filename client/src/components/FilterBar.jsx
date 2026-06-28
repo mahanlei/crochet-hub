@@ -7,7 +7,7 @@ const craftTypes = [
 const difficulties = [
   { value: '', label: '全部难度' },
   { value: 'beginner', label: '入门' },
-  { value: 'intermediate', label: '进阶' },
+  { value: 'intermediate', label: '中级' },
   { value: 'advanced', label: '高级' },
 ]
 

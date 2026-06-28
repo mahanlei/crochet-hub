@@ -14,6 +14,13 @@ DB_PATH = os.path.join(PROJECT_ROOT, "server", "crochet_hub.db")
 DATA_FILE = os.path.join(SCRIPT_DIR, "xhs_data.json")
 UPLOAD_DIR = os.path.join(PROJECT_ROOT, "server", "uploads")
 
+# 中文值 → 英文枚举值映射（数据库与前端统一使用英文值）
+CRAFT_TYPE_MAP = {"钩针": "crochet", "棒针": "knitting", "crochet": "crochet", "knitting": "knitting"}
+DIFFICULTY_MAP = {
+    "入门": "beginner", "中级": "intermediate", "高级": "advanced",
+    "beginner": "beginner", "intermediate": "intermediate", "advanced": "advanced",
+}
+
 
 def create_tables(conn):
     """Create works and steps tables matching the SQLAlchemy ORM models."""
@@ -84,6 +91,12 @@ def seed_works(conn):
         created_at = base_time + timedelta(days=i * 7, hours=random.randint(0, 12))
         updated_at = created_at + timedelta(hours=random.randint(1, 48))
 
+        # 将中文 craft_type / difficulty 映射为英文枚举值
+        raw_craft = post.get("craft_type", "钩针")
+        raw_diff = post.get("difficulty", "中级")
+        craft_type_en = CRAFT_TYPE_MAP.get(raw_craft, raw_craft)
+        difficulty_en = DIFFICULTY_MAP.get(raw_diff, raw_diff)
+
         cursor.execute("""
             INSERT INTO works (title, description, craft_type, difficulty,
                              cover_image, materials, tools, created_at, updated_at)
@@ -91,8 +104,8 @@ def seed_works(conn):
         """, (
             post["title"],
             post["desc"],
-            post.get("craft_type", "钩针"),
-            post.get("difficulty", "中级"),
+            craft_type_en,
+            difficulty_en,
             cover_image,
             materials_json,
             tools_json,

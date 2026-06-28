@@ -186,7 +186,7 @@ export default function AdminForm() {
               className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-pink-500"
             >
               <option value="beginner">入门</option>
-              <option value="intermediate">进阶</option>
+              <option value="intermediate">中级</option>
               <option value="advanced">高级</option>
             </select>
           </div>

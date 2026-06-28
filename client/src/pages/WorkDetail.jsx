@@ -6,7 +6,7 @@ import StepList from '../components/StepList'
 
 const difficultyMap = {
   beginner: '入门',
-  intermediate: '进阶',
+  intermediate: '中级',
   advanced: '高级',
 }
 
